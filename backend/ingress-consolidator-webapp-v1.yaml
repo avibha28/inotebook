@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/upstream-vhost: bmiteststrg.z20.web.core.windows.net
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+          more_clear_headers "Server";    
+  name: test-webapp-v1
+  namespace: testwf
+spec:
+  rules:
+  - host: '*.v5dev.brandmuscle.net'
+    http:
+      paths:
+      - backend:
+          service:
+            name: test-bmiapps-proxy-v1
+            port:
+              number: 443
+        path: /app/test/v1(/|$)(.*)
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - '*.brandmuscle.net'
+    secretName: brandbuilder-tls
+status:
+  loadBalancer:
+    ingress:
+    - {}
