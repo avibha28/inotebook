@@ -22,7 +22,7 @@ function NoteState(props) {
       
     });
     const temp = await response.json()
-    console.log(temp)
+    //console.log(temp)
     setNotes(temp)
   }
   //add a note
@@ -38,7 +38,7 @@ function NoteState(props) {
       body: JSON.stringify({ title, description, tag }) // body data type must match "Content-Type" header
     });
     const temp1 = await response.json();
-    console.log(temp1);
+    //console.log(temp1);
     // const tempNote = {
     //   "_id": "62a05040da5de670b442d1f5",
     //   "user": "629f77aa905d41c09d9269b5",
@@ -65,7 +65,7 @@ function NoteState(props) {
       },
       
     });
-    console.log(response.json())
+    //console.log(response.json())
 //console.log("Deleting the note with id" + id);
     // Update frontend
     const newNotes = notes.filter((note)=>{return note._id!==id})
@@ -86,16 +86,20 @@ function NoteState(props) {
       },
       body: JSON.stringify({ title, description, tag }) // body data type must match "Content-Type" header
     });
-    const json = response.json()
-    console.log(json)
-    for (let index = 0; index < notes.length; index++) {
-      let element = notes[index];
+    const json = await response.json()
+    //console.log(json)
+    //logic to edit client
+    const newNotes = JSON.parse(JSON.stringify(notes))
+    for (let index = 0; index < newNotes.length; index++) {
+      let element = newNotes[index];
       if (element._id === id) {
         element.title = title;
         element.description = description;
         element.tag = tag;
+        //setNotes(element)
       }
     }
+    setNotes(newNotes)
   }
   return (
     <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>

@@ -9,19 +9,21 @@ const fetchuser = require('../middleware/fetchuser');
 
 const saltRounds = 10;
 const JWT_SECRET = 'helloworld'
+
 //post request to create new user
 router.post('/createuser', [body('name', 'enter name with at least 5 letters').isLength({ min: 5 }),
     body('password', 'enter password with at least 5 letters').isLength({ min: 5 }),
     body('email', 'please enter valid email format').isEmail()],
     async (req, res) => {
+      let success = false
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
+                return res.status(400).json({ success, errors: errors.array() });
             }
             //unique email id validation
             let user = await User.findOne({ email: req.body.email });
-            if (user) return res.status(400).send("User already registered.");
+            if (user) return res.status(400).json({success, error: "User already registered."});
 
             const salt = await bcrypt.genSalt(saltRounds)
             const secPass = await bcrypt.hash(req.body.password, salt);
@@ -36,7 +38,8 @@ router.post('/createuser', [body('name', 'enter name with at least 5 letters').i
                 }
             }
             const authToken = jwt.sign(data, JWT_SECRET)
-            res.json({authToken})
+            success = true
+            res.json({success, authToken})
         }
         catch (error) {
             console.error(error.message)
@@ -50,7 +53,7 @@ router.post('/createuser', [body('name', 'enter name with at least 5 letters').i
 
     // login user
 router.post("/login", async (req, res) => {
-
+        let success = false
         // Our login logic starts here
         try {
           // Get user input
@@ -73,9 +76,10 @@ router.post("/login", async (req, res) => {
             //user.token = token;
       
             // user
-            return res.status(200).json({authToken});
+            success = true
+            return res.status(200).json({success, authToken});
           }
-          res.status(400).send("Invalid Credentials");
+          res.status(400).json({success, error: 'invalid crenditals' });
         } catch (err) {
           console.log(err.message);
         }

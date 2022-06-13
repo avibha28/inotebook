@@ -6,9 +6,9 @@ function AddNote() {
     const { addNote } = context
     const [note, setNote] = useState({ title: "", description: "", tag: 'default' })
     const handleAddNote = (e) => {
-       // e.preventDefault()
+        e.preventDefault()
         addNote(note.title, note.description, note.tag)
-      //  setNote({title: "", description: "", tag: ""})
+        setNote({title: "", description: "", tag: "default"})
     }
     const handleChange = (e) => {
         setNote({...note, [e.target.name]: e.target.value })
@@ -19,20 +19,20 @@ function AddNote() {
             <form>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
-                    <input type="text" className="form-control" id="title" aria-describedby="title" name='title' placeholder="Enter title here" onChange={handleChange} />
+                    <input type="text" className="form-control" id="title" value={note.title} aria-describedby="title" name='title' placeholder="Enter title here" onChange={handleChange} minLength={5} required />
 
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
-                    <textarea className="form-control" id="description" name='description' placeholder="Enter discription here" onChange={handleChange} rows="3"></textarea>
+                    <textarea className="form-control" id="description" value={note.description} name='description' placeholder="Enter description here" onChange={handleChange} rows="3" minLength={5} required></textarea>
                 </div>
                 <div className="form-group">
                     <label htmlFor="tag">Tag</label>
-                    <input type="text" className="form-control" id="tag" aria-describedby="tag" name='tag' placeholder="Enter tag here" onChange={handleChange} />
+                    <input type="text" className="form-control" id="tag" value={note.tag} aria-describedby="tag" name='tag' placeholder="Enter tag here" onChange={handleChange} />
 
                 </div>
 
-                <button type="submit" className="btn btn-primary my-2" onClick={handleAddNote}>Add a note</button>
+                <button type="submit" disabled={note.title.length < 5 || note.description.length <5} className="btn btn-primary my-2" onClick={handleAddNote}>Add a note</button>
             </form>
         </div>
     )
