@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 
-function Signup() {
+function Signup(props) {
   const [credential, setcredential] = useState({name: '', email: '', password: ''})
     let history = useNavigate()
     const handleChange = (e) => {
@@ -24,15 +24,17 @@ function Signup() {
           if (res.success) {
               localStorage.setItem('token', res.authToken)
               history("/")
+              props.showAlert("You have signed successfully", "success");
           }
           else{
-              alert( res.success + " invalid credentials")
+              props.showAlert("Something went wrong plz sign up again", "danger");
           }
     }
   return (
     <div>
+    <h2>Signup to use iNotebook</h2>
       <form onSubmit={handleSubmit}>
-      <div className="mb-3">
+      <div className="mb-3 my-3">
                     <label htmlFor="name" className="form-label">UserName</label>
                     <input type="text" className="form-control" id="name" name='name' value={credential.name} onChange={handleChange} aria-describedby="emailHelp" required/>
                     

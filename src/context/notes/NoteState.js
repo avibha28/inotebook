@@ -17,7 +17,7 @@ function NoteState(props) {
       // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWY3N2FhOTA1ZDQxYzA5ZDkyNjliNSIsImVtYWlsIjoicGVkZGkuaGFyaXNoMkBlbWFpbC5jb20iLCJpYXQiOjE2NTQ2OTI0NDh9.NrCXzkg1jyJoKfoUZC7agvzFBczFTOna3AW55ald6Gs'
+        'auth-token': localStorage.getItem('token')
       },
       
     });
@@ -33,7 +33,7 @@ function NoteState(props) {
       // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWY3N2FhOTA1ZDQxYzA5ZDkyNjliNSIsImVtYWlsIjoicGVkZGkuaGFyaXNoMkBlbWFpbC5jb20iLCJpYXQiOjE2NTQ2OTI0NDh9.NrCXzkg1jyJoKfoUZC7agvzFBczFTOna3AW55ald6Gs"
+        "auth-token": localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag }) // body data type must match "Content-Type" header
     });
@@ -61,7 +61,7 @@ function NoteState(props) {
       // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWY3N2FhOTA1ZDQxYzA5ZDkyNjliNSIsImVtYWlsIjoicGVkZGkuaGFyaXNoMkBlbWFpbC5jb20iLCJpYXQiOjE2NTQ2OTI0NDh9.NrCXzkg1jyJoKfoUZC7agvzFBczFTOna3AW55ald6Gs"
+        "auth-token": localStorage.getItem('token')
       },
       
     });
@@ -82,7 +82,7 @@ function NoteState(props) {
       // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWY3N2FhOTA1ZDQxYzA5ZDkyNjliNSIsImVtYWlsIjoicGVkZGkuaGFyaXNoMkBlbWFpbC5jb20iLCJpYXQiOjE2NTQ2OTI0NDh9.NrCXzkg1jyJoKfoUZC7agvzFBczFTOna3AW55ald6Gs"
+        "auth-token": localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag }) // body data type must match "Content-Type" header
     });
